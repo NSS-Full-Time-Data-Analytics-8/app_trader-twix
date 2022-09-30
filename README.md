@@ -30,7 +30,14 @@ b. Apps earn $5000 per month on average from in-app advertising and in-app purch
 c. App Trader will spend an average of $1000 per month to market an app _regardless_ of the price of the app. If App Trader owns rights to the app in both stores, it can market the app for both stores for a single cost of $1000 per month.  
 
 d. For every quarter-point that an app gains in rating, its projected lifespan increases by 6 months, in other words, an app with a rating of 0 can be expected to be in use for 1 year, an app with a rating of 1.0 can be expected to last 3 years, and an app with a rating of 4.0 can be expected to last 9 years. Ratings should be rounded to the nearest 0.25 to evaluate an app's likely longevity.  
-
+0=12
+1=36 ((((24*combined_rating)+12)*1500)-25000)
+2=60
+3=84
+4=108
+4.85=128.4months
+4.90=129.6months
+5=132
 e. App Trader would prefer to work with apps that are available in both the App Store and the Play Store since they can market both for the same $1000 per month.
 
 #### 3. Deliverables
