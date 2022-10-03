@@ -24,12 +24,8 @@ SELECT (app_rating + play_rating)/2 AS combine_rating,
 FROM combine_apps
 ORDER BY combine_rating DESC;
 
-SELECT 
-     COUNT (app_review)
-	 FROM 
 
-SELECT review_count
-from play_store_apps
+MAIN CODE
 
 WITH combined_apps AS (SELECT DISTINCT (name),
 					  size_bytes,
@@ -51,5 +47,13 @@ SELECT DISTINCT name,
 	   genre
 FROM combined_apps
 WHERE app_price = '0' AND play_price = '0'
-AND name Ilike '%photo%'
+AND name Ilike '%workout%'
 ORDER BY profit DESC
+
+
+TOP 5 suggestions
+
+AND name Ilike '%zombie%'
+AND name Ilike '%candy%'
+AND name Ilike '%workout%'
+AND name Ilike '%photo%'

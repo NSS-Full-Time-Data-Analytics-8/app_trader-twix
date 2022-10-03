@@ -1,77 +1,59 @@
-SELECT count (*)
-FROM data_analyst_job;
 
-Question 2
-Select *
-From data_analyst_job
-limit 10;
 
-Question 3
-Select count (company)
-From data_analyst_job
-WHERE location ='TN';
-Question 3B
-SELECT COUNT(company)
-FROM data_analyst_job
-WHERE location ='TN' or location ='KY'
+WITH combine_apps AS (SELECT DISTINCT (name), 
+					  size_bytes, 
+					  category, 
+					  app_store_apps.price AS app_price, 
+					  app_store_apps.rating AS app_rating,
+					  app_store_apps.primary_genre AS app_p_genre,
+					  app_store_apps.review_count AS app_review,
+					  play_store_apps.price AS play_price,
+					  play_store_apps.rating AS play_rating,
+					  play_store_apps.genres AS play_genres,
+					  play_store_apps.review_count AS play_review
+					  FROM app_store_apps
+					  Inner Join play_store_apps
+					  USING (name))
+					  
+SELECT (app_rating + play_rating)/2 AS combine_rating,
+       app_price,
+	   app_p_genre,
+	   play_price,
+	   play_genres,
+	   name
+FROM combine_apps
+ORDER BY combine_rating DESC;
 
-Question 4
-SELECT COUNT(company)
-FROM data_analyst_job
-WHERE location ='TN'
-and star_rating>4
 
-Question 5 
-SELECT COUNT (company)
-FROM data_analyst_job
-WHERE review_count BETWEEN 500 and 1000;
+MAIN CODE
 
-Question 6
+WITH combined_apps AS (SELECT DISTINCT (name),
+					  size_bytes,
+					  category,
+					  app_store_apps.price AS app_price,
+					  app_store_apps.rating AS app_rating,
+					  app_store_apps.primary_genre AS genre,
+					  play_store_apps.price AS play_price,
+					  play_store_apps.rating AS play_rating
+					  FROM app_store_apps
+					  Inner Join play_store_apps
+					  USING (name))
+					
+SELECT DISTINCT name,
+	   ROUND((((((24*(app_rating + play_rating)/2))+12)*4000)-25000),0) AS profit,
+	   ROUND((app_rating + play_rating)/2,2) AS combined_rating,
+       app_price,
+	   play_price,
+	   genre
+FROM combined_apps
+WHERE app_price = '0' AND play_price = '0'
+AND name Ilike '%workout%'
+ORDER BY profit DESC
 
-SELECT AVG(star_rating) AS avg_rating, location AS state
-FROM data_analyst_job
-WHERE star_rating is not null
-Group by location
-Order by avg_rating DESC;
 
-Question 7
-SELECT DISTINCT title
-FROM data_analyst_job;
+TOP 5 suggestions
 
-Question 7B
-SELECT COUNT(DISTINCT title)
-FROM data_analyst_job;
-
-Question 8
-SELECT COUNT(DISTINCT title)
-FROM data_analyst_job
-WHERE location ='CA'
-
-Question 9
-SELECT DISTINCT company,AVG(star_rating)
-FROM data_analyst_job
-WHERE review_count>5000 and company is not null
-GROUP BY company;
-9b
-SELECT count( Distinct company)
-FROM data_analyst_job
-WHERE review_count>5000 and company is not null;
-
-Question 10
-SELECT DISTINCT company,(AVG(star_rating)) as avg_star_rating
-FROM data_analyst_job
-WHERE review_count>5000 and company is not null
-GROUP BY company
-ORDER BY avg_star_rating DESC;
-
-Question 11
-SELECT count (distinct title)
-FROM data_analyst_job
-Where title Ilike '%analyst%'
-
-Question 12
-SELECT count (title)
-FROM data_analyst_job
-WHERE title not ilike '%analyst%' and title not ilike '%analytics%';
-
-Bonus
+AND name Ilike '%zombie%'
+AND name Ilike '%candy%'
+AND name Ilike '%workout%'
+AND name Ilike '%photo%'
